@@ -14,7 +14,8 @@ mvn spring-boot:run
 ```
 ### Prerequisites.
 ```
-must have java 8, maven plugins installed. 
+must have java 8, maven plugins installed.
+In-memory database is used.
 ```
 
 ### Swagger

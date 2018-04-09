@@ -41,9 +41,6 @@ Give the example
 url : http://localhost:8080/project
 method : POST
 
-sample request:
-
-
 date time format for deadline 
  ```
  "dd-MM-yyyy hh:mm:ss"
@@ -55,6 +52,8 @@ date time format for deadline
  For example if current time is 15:20:20, provide deadline as 15:30:20.
  You can submit bids before 15:30:20 only and you can get the winning bid after 15:30:20.
  ```
+ sample request:
+
 ```
 {
 	"description":"Ecommerce website",

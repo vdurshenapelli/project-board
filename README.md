@@ -14,7 +14,8 @@ mvn spring-boot:run
 ```
 ### Prerequisites.
 ```
-must have java 8, maven plugins installed. 
+must have java 8, maven plugins installed.
+In-memory database is used.
 ```
 
 ### Swagger
@@ -42,9 +43,17 @@ method : POST
 
 sample request:
 
+
 date time format for deadline 
  ```
  "dd-MM-yyyy hh:mm:ss"
+
+ For verifying validations on submitting bids only before deadline and finding the winning bid after deadline is reached,
+ Please provide deadline as current local time + 5/10 min. This allows to verify all endpoints at once.
+ On the backend, time is persisted in UTC format
+
+ For example if current time is 15:20:20, provide deadline as 15:30:20.
+ You can submit bids before 15:30:20 only and you can get the winning bid after 15:30:20.
  ```
 ```
 {

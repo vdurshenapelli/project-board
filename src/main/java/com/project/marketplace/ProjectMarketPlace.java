@@ -1,16 +1,12 @@
-package com.intuit.projectboard;
+package com.project.marketplace;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * Created by vikas on 3/28/2018.
- */
-
 @SpringBootApplication
-public class ProjectBoard {
+public class ProjectMarketPlace {
 
     public static void main(String[] args) {
-        SpringApplication.run(ProjectBoard.class, args);
+        SpringApplication.run(ProjectMarketPlace.class, args);
     }
 }

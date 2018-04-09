@@ -1,4 +1,4 @@
-package com.intuit.projectboard.config;
+package com.project.marketplace.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.intuit.projectboard.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.project.marketplace.web.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());
@@ -28,7 +28,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfo("Project Board API Documentation","Project Board API's to manage new projects and bidding requests.",
                 "1.0",
-                "API TOS", new Contact("Vikas D.", "www.vikas.com/test", "vikas@vikas.com"),
+                "API TOS", new Contact("Vikas D.", "https://github.com/vdurshenapelli/", "vdurshenapelli@gmail.com"),
                 "License","License URL", Collections.emptyList());
     }
 

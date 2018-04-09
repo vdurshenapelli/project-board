@@ -1,61 +1,197 @@
-# Project Bidding Service
+# Project Marketplace Service
 
-Project Bidding service  supplies integration api's to Create, Bid and choose the winning bid for a given project.
+Project Marketplace service supplies integration api's to Create, Bid and Choose the winning bid for a given project.
 
 ## Getting Started
-navigate to [my project] https://github.com/vdurshenapelli/project-board
+
+```
+navigate to [my project] 
+https://github.com/vdurshenapelli/project-marketplace
 git checkout/download/clone 
+mvn clean install
 
-mvn clean build
-
-run as spring boot project.
-
+mvn spring-boot:run
+```
 ### Prerequisites.
 ```
-must have java 8
+must have java 8, maven plugins installed. 
 ```
 
-### Installing
+### Swagger
 
-A step by step series of examples that tell you have to get a development env running
+Swagger url - http://localhost:8080/swagger-ui.html
 
-Say what the step will be
+### Assumptions
+```
+A buyer cannot submit bids after deadline is reached for a project.
+Winning bid for a project is decided only after the deadline to submit a project is completed.
+A buyer can bid for price grater than the maximum price set by the seller.
+Seller should provide the deadline while submiiting a new project , else return error messsage
+Buyer should provide mandatory buyername,estimated amount while submitting bid request, else return error message
+```
+### Step by step guide
+
+A step by step sequence with sample request and response 
 
 ```
 Give the example
 ```
+1.Submit a new project
+url : http://localhost:8080/project
+method : POST
 
-And repeat
+sample request:
+
+date time format for deadline 
+ ```
+ "dd-MM-yyyy hh:mm:ss"
+ ```
+```
+{
+	"description":"Ecommerce website",
+	"maximumBudget":1000,
+	"deadLine":"08-04-2018 19:27:22"
+}
+
 
 ```
-until finished
+
+sample response :
 ```
+{
+    "projectId": 1
+}
+```
+2. Submit bid for any project
+
+endpoint : http://localhost:8080/bid
+method : POST
+sample request
+```
+{
+	"estimatedAmt":800,
+	"buyerName":"Looser",
+	"project":{
+            "id":1
+	}
+}
+```
+sample response :
+```
+{
+    "bidId": 1
+}
+```
+sample response when deadline for submitting bids is completed
+
+```
+{
+    "code": "bid.closed",
+    "description": "Deadline is completed and you cannot bid anymore."
+}
+```
+sample response when project id is invalid
+
+```
+{
+    "code": "project.id.invalid",
+    "description": "Invalid projectId."
+} 
+```
+sample response when estimatedAmount/buyerName is null
+
+```
+{
+    "code": "field.notNull",
+    "description": "Field value cannot be null"
+}
+```
+
+3.show bids submitted for a project
+endpoint : http://localhost:8080/project/{projectId}
+method  : GET
+
+sample request
+```
+http://localhost:8080/project/1
+```
+
+sample response
+```
+{
+    "id": 1,
+    "description": "Ecommerce website",
+    "maximumBudget": 1000,
+    "deadLine": "08-04-2018 07:50:22",
+    "biddings": [
+        {
+            "id": 1,
+            "estimatedAmt": 2000,
+            "buyerName": "Looser"
+        },
+        {
+            "id": 2,
+            "estimatedAmt": 100,
+            "buyerName": "winner"
+        }
+    ]
+}
+```
+
+sample response when project id is invalid
+
+```
+{
+    "code": "project.id.invalid",
+    "description": "Invalid projectId."
+} 
+```
+
+4. Show winning bid for a project after deadline is passed
+endpoint : http://localhost:8080/{projectId}/bid/winner
+method : GET
+sample request : http://localhost:8080/1/bid/winner
+
+sample response :
+
+```
+{
+    "id": 2,
+    "estimatedAmt": 100,
+    "buyerName": "winner"
+}
+
+```
+sample response when deadline to submit bids is not reached
+```
+{
+    "code": "bid.still.open",
+    "description": "Winning bid is displayed only after deadline is completed."
+}
+
+```
+5. list all projects:
+
+endpoint : http://localhost:8080/project/all
+method : GET
+sample request : http://localhost:8080/project/all
+
 
 End with an example of getting some data out of the system or using it for a little demo
 
-## Running the tests
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+About Coding Challenge
 
 ```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
+The time the exercise took                   - 6 hours
+Exercise Difficulty                          - Medium
+How did you feel about the exercise itself?  - 10
+How did you feel about the exercise itself?  - 10
 ```
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+mvn spring-boot:run
 
 ## Built With
 
@@ -63,14 +199,5 @@ Add additional notes about how to deploy this on a live system
 
 ## Authors
 
-* **Vikas Durshenapelli** - *Initial work* - [github](https://github.com/vdurshenapelli)
+* **Vikas Durshenapelli** - [github](https://github.com/vdurshenapelli)
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc

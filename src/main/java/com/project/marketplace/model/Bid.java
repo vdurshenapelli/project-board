@@ -1,12 +1,10 @@
-package com.intuit.projectboard.model;
+package com.project.marketplace.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
-/**
- * Created by vikas on 3/29/2018.
- */
 @Entity
 public class Bid {
 
@@ -18,8 +16,9 @@ public class Bid {
     @JoinColumn(name = "projectId")
     @JsonBackReference
     private Project project;
-
+    @NotNull
     private Long estimatedAmt;
+    @NotNull
     private String buyerName;
 
     public long getId() {
